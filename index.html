@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="midnight">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Abacus AI Automate — Event Page Concept</title>
+<meta name="description" content="An independent design concept for the Abacus AI Automate enterprise conference, with verified findings and a live design system.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --r-sm:10px; --r-md:14px; --r-lg:20px; --r-xl:28px;
+  --maxw:1280px;
+  --f-display:'Space Grotesk','Segoe UI',system-ui,-apple-system,sans-serif;
+  --f-body:'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+  --ease:cubic-bezier(.16,.84,.44,1);
+}
+html[data-theme="midnight"]{
+  --bg:#07080C; --bg2:#0B0D13; --bg3:#0F121A;
+  --surface:rgba(255,255,255,.038); --surface2:rgba(255,255,255,.062);
+  --border:rgba(255,255,255,.09); --border2:rgba(255,255,255,.17);
+  --text:#E9ECF5; --muted:#8B94A9; --dim:#5C6579;
+  --accent:#6D5EF8; --accent2:#22D3EE;
+  --flag:#FF4D5E; --ok:#2FD98F; --warn:#FFB020;
+  --glow:0 0 80px -22px rgba(109,94,248,.7);
+  --shadow:0 24px 60px -30px rgba(0,0,0,.9);
+  --grid:rgba(255,255,255,.045);
+}
+html[data-theme="aurora"]{
+  --bg:#04100F; --bg2:#061A18; --bg3:#08211E;
+  --surface:rgba(255,255,255,.045); --surface2:rgba(255,255,255,.072);
+  --border:rgba(160,255,235,.14); --border2:rgba(160,255,235,.27);
+  --text:#E7F6F2; --muted:#84A8A0; --dim:#5A7A73;
+  --accent:#14E0A8; --accent2:#7C6BFF;
+  --flag:#FF5C6B; --ok:#4AE3A0; --warn:#FFC24D;
+  --glow:0 0 80px -22px rgba(20,224,168,.55);
+  --shadow:0 24px 60px -30px rgba(0,0,0,.85);
+  --grid:rgba(160,255,235,.05);
+}
+html[data-theme="daylight"]{
+  --bg:#F6F7FB; --bg2:#FFFFFF; --bg3:#EEF1F7;
+  --surface:rgba(12,16,28,.032); --surface2:rgba(12,16,28,.058);
+  --border:rgba(12,16,28,.11); --border2:rgba(12,16,28,.2);
+  --text:#0E1220; --muted:#535C71; --dim:#7A8396;
+  --accent:#4B3BE8; --accent2:#0E7C93;
+  --flag:#C8202F; --ok:#0B7C4F; --warn:#8A5A05;
+  --glow:0 0 80px -32px rgba(75,59,232,.35);
+  --shadow:0 20px 50px -32px rgba(12,16,28,.4);
+  --grid:rgba(12,16,28,.05);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-padding-top:104px}
+body{
+  background:var(--bg);color:var(--text);font-family:var(--f-body);
+  font-size:15.5px;line-height:1.58;-webkit-font-smoothing:antialiased;
+  transition:background .5s var(--ease),color .5s var(--ease);overflow-x:hidden}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 26px}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.08;letter-spacing:-.03em;font-weight:600}
+a{color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+::selection{background:var(--accent);color:#fff}
+
+/* ============ DISCLOSE ============ */
+.disclose{background:var(--bg3);border-bottom:1px solid var(--border);font-size:12px;color:var(--muted)}
+.disclose .wrap{display:flex;gap:11px;align-items:center;padding-top:8px;padding-bottom:8px}
+.disclose b{color:var(--text);font-weight:600}
+.dot-pulse{width:6px;height:6px;border-radius:50%;background:var(--warn);flex:none;animation:pulse 2.6s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,176,32,.45)}70%{box-shadow:0 0 0 8px rgba(255,176,32,0)}100%{box-shadow:0 0 0 0 rgba(255,176,32,0)}}
+
+/* ============ NAV ============ */
+.nav{position:sticky;top:0;z-index:60;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  background:color-mix(in srgb,var(--bg) 82%,transparent);border-bottom:1px solid var(--border)}
+.nav .wrap{display:flex;align-items:center;gap:16px;padding-top:11px;padding-bottom:11px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:700;letter-spacing:-.03em;font-size:16px;white-space:nowrap;flex:none}
+.brand .mark{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));position:relative;flex:none}
+.brand .mark::after{content:"";position:absolute;inset:7px;border-radius:3px;border:2px solid var(--bg);opacity:.9}
+.navlinks{display:flex;gap:3px;margin-left:auto;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;min-width:0;flex:0 1 auto}
+.navlinks::-webkit-scrollbar{display:none}
+.navlinks a{font-size:13px;color:var(--muted);text-decoration:none;padding:7px 12px;border-radius:999px;
+  transition:.25s var(--ease);font-weight:500;white-space:nowrap}
+.navlinks a:hover{color:var(--text);background:var(--surface)}
+.navlinks a.on{color:var(--text);background:var(--surface2)}
+.theme-pick{display:flex;gap:4px;padding:4px;border:1px solid var(--border);border-radius:999px;background:var(--surface);flex:none}
+.theme-pick button{width:24px;height:24px;border-radius:50%;position:relative;transition:.3s var(--ease);border:2px solid transparent}
+.theme-pick button span{position:absolute;inset:3px;border-radius:50%}
+.theme-pick button[aria-pressed="true"]{border-color:var(--text);transform:scale(1.06)}
+.tp-midnight span{background:linear-gradient(135deg,#6D5EF8,#22D3EE)}
+.tp-aurora span{background:linear-gradient(135deg,#14E0A8,#7C6BFF)}
+.tp-daylight span{background:linear-gradient(135deg,#4B3BE8,#F6F7FB)}
+
+/* ============ BUTTONS ============ */
+.btn{display:inline-flex;align-items:center;gap:8px;justify-content:center;padding:12px 21px;border-radius:999px;
+  font-weight:600;font-size:14px;text-decoration:none;transition:.3s var(--ease);border:1px solid transparent;letter-spacing:-.01em}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:var(--glow)}
+.btn-primary:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.btn-ghost{border-color:var(--border2);color:var(--text);background:var(--surface)}
+.btn-ghost:hover{background:var(--surface2);transform:translateY(-2px)}
+.btn-sm{padding:8px 14px;font-size:12px}
+.btn:active{transform:translateY(0) scale(.985)}
+
+/* ============ HERO ============ */
+.hero{position:relative;padding:60px 0 56px;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:-45% -20% auto -20%;height:720px;pointer-events:none;
+  background:radial-gradient(52% 46% at 20% 34%,color-mix(in srgb,var(--accent) 34%,transparent) 0%,transparent 70%),
+             radial-gradient(46% 42% at 80% 20%,color-mix(in srgb,var(--accent2) 26%,transparent) 0%,transparent 70%);
+  filter:blur(16px);opacity:.85}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:58px 58px;
+  mask-image:radial-gradient(72% 60% at 45% 34%,#000 0%,transparent 78%);
+  -webkit-mask-image:radial-gradient(72% 60% at 45% 34%,#000 0%,transparent 78%)}
+.hero .wrap{position:relative;z-index:2}
+.hero-split{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;padding:7px 14px 7px 9px;border-radius:999px;
+  border:1px solid var(--border2);background:var(--surface);font-size:11.5px;color:var(--muted);
+  letter-spacing:.07em;text-transform:uppercase;font-weight:600;margin-bottom:18px}
+.eyebrow .pip{width:6px;height:6px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px var(--ok)}
+h1.title{font-size:clamp(40px,6.2vw,74px);letter-spacing:-.05em;font-weight:700}
+h1.title .grad{background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{font-size:clamp(16px,1.7vw,18.5px);color:var(--muted);max-width:56ch;margin-top:16px}
+.hero-cta{display:flex;gap:11px;margin-top:26px;flex-wrap:wrap}
+.factgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fact{border:1px solid var(--border);background:var(--surface);border-radius:var(--r-lg);padding:18px 19px;transition:.35s var(--ease)}
+.fact:hover{border-color:var(--border2);transform:translateY(-2px)}
+.fact .k{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:700}
+.fact .v{font-family:var(--f-display);font-size:21px;font-weight:600;margin-top:6px;letter-spacing:-.03em;line-height:1.15}
+.fact .s{font-size:12.5px;color:var(--muted);margin-top:5px;line-height:1.45}
+.tbd{color:var(--warn)}
+
+/* ============ SECTIONS ============ */
+section{padding:48px 0;position:relative}
+.sec-head{max-width:66ch;margin-bottom:24px}
+.sec-tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2);font-weight:700}
+html[data-theme="daylight"] .sec-tag{color:var(--accent)}
+.sec-head h2{font-size:clamp(27px,3.4vw,40px);margin-top:10px}
+.sec-head p{color:var(--muted);margin-top:11px;font-size:15.5px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.two>*{min-width:0}
+.card{border:1px solid var(--border);background:var(--surface);border-radius:var(--r-lg);padding:24px;transition:.35s var(--ease)}
+.card:hover{border-color:var(--border2)}
+.quote{border-left:2px solid var(--accent);padding:3px 0 3px 16px;font-size:16px;line-height:1.5}
+.attrib{font-size:12.5px;color:var(--dim);margin-top:11px;line-height:1.5}
+
+/* ============ AGENDA ============ */
+.acc{border:1px solid var(--border);border-radius:var(--r-lg);background:var(--surface);overflow:hidden;align-self:start}
+.acc-btn{width:100%;display:flex;align-items:center;gap:13px;padding:18px 20px;text-align:left;transition:.25s var(--ease)}
+.acc-btn:hover{background:var(--surface2)}
+.acc-slot{font-family:var(--f-display);font-size:11.5px;color:var(--accent2);font-weight:700;letter-spacing:.06em;flex:none}
+html[data-theme="daylight"] .acc-slot{color:var(--accent)}
+.acc-title{font-family:var(--f-display);font-size:16px;font-weight:600;flex:1;letter-spacing:-.025em;line-height:1.25}
+.acc-ico{width:23px;height:23px;border-radius:50%;border:1px solid var(--border2);display:grid;place-items:center;flex:none;transition:.35s var(--ease);font-size:14px;color:var(--muted)}
+.acc.open .acc-ico{transform:rotate(45deg);background:var(--accent);border-color:var(--accent);color:#fff}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .4s var(--ease)}
+.acc-body-in{padding:0 20px 20px;color:var(--muted);font-size:14px}
+.slot-note{display:inline-block;margin-top:11px;font-size:11.5px;color:var(--warn);border:1px dashed color-mix(in srgb,var(--warn) 45%,transparent);padding:5px 11px;border-radius:999px}
+
+/* ============ FORM ============ */
+.form-shell{border:1px solid var(--border);background:var(--surface);border-radius:var(--r-xl);padding:28px;position:relative;overflow:hidden}
+.form-shell::before{content:"";position:absolute;inset:0;background:radial-gradient(70% 100% at 0% 0%,color-mix(in srgb,var(--accent) 12%,transparent),transparent 60%);pointer-events:none}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;position:relative}
+.fgrid>*{min-width:0}
+.field{display:flex;flex-direction:column;gap:6px}
+label{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--dim);font-weight:700}
+input,select{width:100%;padding:12px 14px;border-radius:var(--r-sm);border:1px solid var(--border2);
+  background:var(--bg2);color:var(--text);font-family:inherit;font-size:14.5px;transition:.25s var(--ease)}
+input:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 20%,transparent)}
+input.bad,select.bad{border-color:var(--flag);box-shadow:0 0 0 3px color-mix(in srgb,var(--flag) 16%,transparent)}
+.err{font-size:11.5px;color:var(--flag);min-height:15px}
+.form-foot{display:flex;align-items:center;gap:14px;margin-top:18px;flex-wrap:wrap;position:relative}
+.form-note{font-size:12px;color:var(--dim);max-width:42ch}
+.ok-state{display:none;text-align:center;padding:16px 0}
+.ok-state.show{display:block;animation:rise .5s var(--ease)}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.ok-badge{width:52px;height:52px;border-radius:50%;background:color-mix(in srgb,var(--ok) 16%,transparent);border:1px solid var(--ok);color:var(--ok);display:grid;place-items:center;margin:0 auto 14px;font-size:24px}
+
+/* ============ EVIDENCE ============ */
+.tabs{display:flex;gap:4px;padding:4px;border:1px solid var(--border);border-radius:999px;background:var(--surface);margin-bottom:20px;width:fit-content;max-width:100%;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:9px 17px;border-radius:999px;font-size:13px;font-weight:600;color:var(--muted);transition:.28s var(--ease);display:flex;align-items:center;gap:8px;white-space:nowrap}
+.tab .cnt{font-size:11px;padding:1px 7px;border-radius:999px;background:var(--surface2);color:var(--dim)}
+.tab[aria-selected="true"]{background:var(--bg2);box-shadow:var(--shadow)}
+.tab[aria-selected="true"].t-flag{color:var(--flag)}
+.tab[aria-selected="true"].t-ok{color:var(--ok)}
+.ev{border:1px solid var(--border);border-radius:var(--r-lg);background:var(--surface);padding:20px 22px;
+  display:flex;flex-direction:column;gap:10px;transition:.35s var(--ease);position:relative;overflow:hidden}
+.ev::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--sev)}
+.ev:hover{transform:translateY(-2px);border-color:var(--border2)}
+.ev-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sev{font-size:10px;letter-spacing:.11em;text-transform:uppercase;font-weight:700;padding:4px 10px;border-radius:999px;
+  color:var(--sev);background:color-mix(in srgb,var(--sev) 14%,transparent);border:1px solid color-mix(in srgb,var(--sev) 40%,transparent)}
+.ev h4{font-size:16.5px;letter-spacing:-.025em;line-height:1.22}
+.ev .found{color:var(--muted);font-size:14px;line-height:1.55}
+.proof{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;
+  background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-sm);padding:11px 13px;
+  word-break:break-word;line-height:1.5}
+.proof .lbl{display:block;color:var(--dim);font-size:10px;letter-spacing:.11em;text-transform:uppercase;margin-bottom:6px;font-family:var(--f-body);font-weight:700}
+.ev-acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:2px}
+.hidden{display:none !important}
+.more-wrap{display:flex;justify-content:center;margin-top:18px}
+
+/* ============ COMPARE ============ */
+.cmp{border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;background:var(--surface)}
+.cmp-h{padding:13px 20px;font-family:var(--f-display);font-weight:600;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--border)}
+.cmp.bad .cmp-h{color:var(--flag);background:color-mix(in srgb,var(--flag) 8%,transparent)}
+.cmp.good .cmp-h{color:var(--ok);background:color-mix(in srgb,var(--ok) 8%,transparent)}
+.cmp-b{padding:20px}
+.serp{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-md);padding:16px}
+.serp .url{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:7px}
+.serp .fav{width:15px;height:15px;border-radius:4px;background:linear-gradient(135deg,var(--accent),var(--accent2));flex:none}
+.serp .t{font-size:16.5px;color:var(--accent2);margin-top:7px;font-weight:500;line-height:1.3}
+html[data-theme="daylight"] .serp .t{color:#1a0dab}
+.serp .d{font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.5}
+.social{margin-top:13px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden}
+.social .img{height:78px;display:grid;place-items:center;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--dim);border-bottom:1px solid var(--border);text-align:center;padding:0 12px}
+.social.bad .img{background:repeating-linear-gradient(45deg,var(--bg3),var(--bg3) 11px,var(--bg2) 11px,var(--bg2) 22px)}
+.social.good .img{background:linear-gradient(120deg,color-mix(in srgb,var(--accent) 42%,transparent),color-mix(in srgb,var(--accent2) 42%,transparent));color:var(--text)}
+.social .meta{padding:11px 14px}
+.social .meta .st{font-size:13.5px;font-weight:600;line-height:1.3}
+.social .meta .sd{font-size:12px;color:var(--muted);margin-top:4px}
+.cmp-note{color:var(--muted);font-size:13px;margin-top:14px;line-height:1.55}
+
+/* ============ DEVICES ============ */
+.dev-desktop{border:1px solid var(--border2);border-radius:var(--r-lg);background:var(--bg2);overflow:hidden;box-shadow:var(--shadow)}
+.dev-bar{display:flex;align-items:center;gap:6px;padding:9px 13px;border-bottom:1px solid var(--border);background:var(--bg3)}
+.dev-bar i{width:8px;height:8px;border-radius:50%;background:var(--border2);display:block}
+.dev-url{margin-left:8px;font-size:10.5px;color:var(--dim);font-family:ui-monospace,Menlo,monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dev-phone{width:216px;margin:0 auto;border:1px solid var(--border2);border-radius:28px;background:var(--bg2);padding:9px;box-shadow:var(--shadow)}
+.dev-notch{width:60px;height:4px;border-radius:999px;background:var(--border2);margin:2px auto 8px}
+.mini{padding:18px 16px;position:relative;overflow:hidden}
+.mini.lg{padding:26px 24px;min-height:196px}
+.mini::before{content:"";position:absolute;inset:-40% -10% auto -10%;height:200px;
+  background:radial-gradient(50% 50% at 25% 40%,color-mix(in srgb,var(--accent) 30%,transparent),transparent 70%);filter:blur(14px)}
+.mini>*{position:relative}
+.mini-eyebrow{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);border:1px solid var(--border2);border-radius:999px;padding:3px 8px;display:inline-block}
+.mini-h{font-family:var(--f-display);font-weight:700;letter-spacing:-.045em;margin-top:9px;line-height:1.02}
+.mini-h .grad{background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.mini-p{font-size:8.5px;color:var(--muted);margin-top:7px;line-height:1.45}
+.mini.lg .mini-p{font-size:11px;max-width:40ch}
+.mini-btns{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.mini-btn{font-size:8px;font-weight:600;padding:5px 10px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
+.mini-btn.g{background:var(--surface2);color:var(--text);border:1px solid var(--border2)}
+.mini.lg .mini-btn{font-size:10px;padding:7px 14px}
+.mini-tiles{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:11px}
+.mini-tile{border:1px solid var(--border);border-radius:9px;background:var(--surface);padding:8px 9px}
+.mini-tile .mk{font-size:6.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:700}
+.mini-tile .mv{font-family:var(--f-display);font-size:11px;font-weight:600;margin-top:3px;letter-spacing:-.02em}
+.mini.lg .mini-tile .mk{font-size:8px}
+.mini.lg .mini-tile .mv{font-size:14px}
+.dev-cap{text-align:center;font-size:12px;color:var(--dim);margin-top:12px;letter-spacing:.05em;text-transform:uppercase;font-weight:600}
+
+/* ============ DESIGN SYSTEM ============ */
+.sub-h{font-size:16px;margin-bottom:12px;font-family:var(--f-display);font-weight:600}
+.tok-row{display:flex;align-items:center;gap:13px;padding:11px 14px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);transition:.3s var(--ease)}
+.tok-row+.tok-row{margin-top:8px}
+.tok-row:hover{border-color:var(--border2)}
+.sw{width:34px;height:34px;border-radius:9px;flex:none;border:1px solid var(--border2)}
+.tok-meta{flex:1;min-width:0;overflow-wrap:anywhere}
+.tok-meta .n{font-family:var(--f-display);font-weight:600;font-size:14px}
+.tok-meta .h{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;color:var(--muted)}
+.ratio{text-align:right;flex:none;min-width:0}
+.ratio .num{font-family:var(--f-display);font-size:16px;font-weight:600}
+.pill{font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;padding:2px 8px;border-radius:999px;display:inline-block;margin-top:3px}
+.pill.pass{color:var(--ok);background:color-mix(in srgb,var(--ok) 15%,transparent);border:1px solid color-mix(in srgb,var(--ok) 42%,transparent)}
+.pill.fail{color:var(--flag);background:color-mix(in srgb,var(--flag) 15%,transparent);border:1px solid color-mix(in srgb,var(--flag) 42%,transparent)}
+.type-row{border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);padding:12px 16px;display:flex;align-items:baseline;gap:16px;overflow:hidden}
+.type-row+.type-row{margin-top:8px}
+.type-row .lbl{font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--dim);font-weight:700;flex:none;width:86px}
+.type-row .demo{font-family:var(--f-display);font-weight:600;letter-spacing:-.035em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.comp-strip{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.speed-strip{display:flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:space-between;
+  border:1px solid var(--border);border-radius:var(--r-lg);background:var(--surface);padding:18px 22px;margin-top:16px}
+.speed-strip .big{font-family:var(--f-display);font-size:38px;font-weight:700;letter-spacing:-.05em;line-height:1;
+  background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.speed-strip .lbl{font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--dim);font-weight:700}
+.speed-strip p{font-size:13px;color:var(--muted);max-width:46ch;flex:1;min-width:220px}
+
+/* ============ COVERAGE ============ */
+.cov{border:1px solid var(--border);border-radius:var(--r-lg);background:var(--surface);padding:16px 18px;display:flex;gap:13px;align-items:flex-start}
+.cov+.cov{margin-top:10px}
+.cov .tick{width:22px;height:22px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:12px;font-weight:700;
+  color:var(--ok);background:color-mix(in srgb,var(--ok) 15%,transparent);border:1px solid color-mix(in srgb,var(--ok) 45%,transparent)}
+.cov.part .tick{color:var(--warn);background:color-mix(in srgb,var(--warn) 15%,transparent);border-color:color-mix(in srgb,var(--warn) 45%,transparent)}
+.cov .req{font-family:var(--f-display);font-weight:600;font-size:14.5px;letter-spacing:-.02em}
+.cov .ans{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.5}
+
+/* ============ FOOTER ============ */
+footer{border-top:1px solid var(--border);padding:40px 0 52px;background:var(--bg2)}
+.foot-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:start}
+.foot-grid>*{min-width:0}
+footer p{color:var(--muted);font-size:13.5px}
+.legal{font-size:11.5px;color:var(--dim);margin-top:20px;line-height:1.65;border-top:1px solid var(--border);padding-top:18px}
+
+/* ============ TOAST ============ */
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,24px);opacity:0;pointer-events:none;
+  background:var(--bg3);border:1px solid var(--border2);padding:11px 20px;border-radius:999px;
+  font-size:13px;font-weight:500;z-index:200;transition:.4s var(--ease);box-shadow:var(--shadow);max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ============ REVEAL ============ */
+.rv{opacity:0;transform:translateY(16px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.rv.in{opacity:1;transform:none}
+
+@media (max-width:980px){
+  .hero-split{grid-template-columns:1fr;gap:28px}
+  h1.title{font-size:clamp(36px,9vw,54px)}
+}
+@media (max-width:760px){
+  .two,.fgrid,.foot-grid{grid-template-columns:1fr}
+  .wrap{padding:0 18px}
+  section{padding:44px 0}
+  .hero{padding:36px 0 40px}
+  .brand span:not(.mark){display:none}
+  .navlinks{margin-left:0}
+  .nav .wrap{gap:10px}
+  .disclose .wrap{align-items:flex-start}
+  .card,.ev,.cmp-b,.form-shell{padding:18px}
+  .type-row{flex-direction:column;align-items:flex-start;gap:8px}
+  .type-row .lbl{width:auto}
+  .type-row .demo{max-width:100%}
+  .tok-row{padding:10px 12px;gap:11px}
+  .speed-strip{padding:16px 18px}
+  .tabs{width:100%}
+  .tab{flex:1;justify-content:center;padding:9px 10px;font-size:12px}
+  .factgrid{grid-template-columns:1fr 1fr;gap:10px}
+  .fact{padding:14px 15px}
+  .fact .v{font-size:17px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none !important;transition-duration:.01ms !important}
+}
+</style>
+</head>
+<body>
+
+<div class="disclose">
+  <div class="wrap">
+    <span class="dot-pulse"></span>
+    <span><b>Independent design concept.</b> Not affiliated with, endorsed by, or produced by Abacus.AI. Every quoted claim links to its public source. The form is a visual demo and collects nothing.</span>
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="wrap">
+    <div class="brand"><span class="mark"></span><span>Automate</span></div>
+    <div class="navlinks" id="navlinks">
+      <a href="#event" class="on">Event</a>
+      <a href="#agenda">Agenda</a>
+      <a href="#invite">Invite</a>
+      <a href="#evidence">Findings</a>
+      <a href="#compare">Before &amp; after</a>
+      <a href="#devices">Web &amp; mobile</a>
+      <a href="#system">Design system</a>
+      <a href="#coverage">Brief check</a>
+    </div>
+    <div class="theme-pick" role="group" aria-label="Theme">
+      <button class="tp-midnight" data-theme-set="midnight" aria-pressed="true" title="Midnight"><span></span></button>
+      <button class="tp-aurora" data-theme-set="aurora" aria-pressed="false" title="Aurora"><span></span></button>
+      <button class="tp-daylight" data-theme-set="daylight" aria-pressed="false" title="Daylight"><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="event">
+  <div class="wrap">
+    <div class="hero-split">
+      <div>
+        <span class="eyebrow"><span class="pip"></span>Invite only · Enterprise</span>
+        <h1 class="title">Abacus AI <span class="grad">Automate</span></h1>
+        <p class="lede">The first exclusive enterprise AI conference, bringing together 100+ CIOs, CEOs and enterprise leaders of AI native companies to discuss the self&#8209;improving enterprise.</p>
+        <div class="hero-cta">
+          <a href="#invite" class="btn btn-primary">Request an invitation <span aria-hidden="true">&rarr;</span></a>
+          <a href="#agenda" class="btn btn-ghost">See the agenda framework</a>
+        </div>
+      </div>
+      <div class="factgrid">
+        <div class="fact rv"><div class="k">Audience</div><div class="v">100+ leaders</div><div class="s">CIOs, CEOs and enterprise leaders of AI native companies.</div></div>
+        <div class="fact rv"><div class="k">Access</div><div class="v">Invite only</div><div class="s">Existing customers are asked to contact their account manager.</div></div>
+        <div class="fact rv"><div class="k">Date</div><div class="v tbd">Not yet announced</div><div class="s">No date has been published. This slot is built to accept one.</div></div>
+        <div class="fact rv"><div class="k">Venue</div><div class="v tbd">Not yet announced</div><div class="s">No venue has been published. Nothing here is invented.</div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- SOURCE -->
+<section>
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-tag">Source material</div>
+      <h2>Every word on this page came from the announcement</h2>
+      <p>The conference was announced publicly on 26 August 2026. The copy below is quoted from that announcement, not written by us.</p>
+    </div>
+    <div class="two">
+      <div class="card rv">
+        <div class="quote">Super Excited To Announce Abacus AI Automate — Our First Exclusive Enterprise AI Conference</div>
+        <div class="attrib">Bindu Reddy, CEO and co-founder. Public post, 26 August 2026. 417 reactions, 46 comments, 45 reposts at time of review.</div>
+      </div>
+      <div class="card rv">
+        <div class="quote">Tomorrow's enterprise will be run by agentic human engineers who monitor 1000s of long running AI agents.</div>
+        <div class="attrib">Same post. This is the line the page should be built around, and it currently lives only inside a social feed.</div>
+      </div>
+      <div class="card rv">
+        <div class="quote">Come experience the magic of having thousands of AI agents run a complex organization</div>
+        <div class="attrib">Same post, quoted verbatim. It is a promise with nowhere to send anyone.</div>
+      </div>
+      <div class="card rv">
+        <div class="quote">This is an invite-only conference. Please contact your account manager if you are an existing Abacus AI customer</div>
+        <div class="attrib">Same post. Today this is the only registration path that exists anywhere, and it is a sentence at the bottom of a feed.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AGENDA -->
+<section id="agenda">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-tag">Agenda framework</div>
+      <h2>Structure ready, content yours</h2>
+      <p>No session titles, speakers, times or venue have been announced, so none are invented here. What is built is the container, mapped to themes the company has already published, so real content drops in without a redesign.</p>
+    </div>
+    <div class="two">
+      <div class="acc rv">
+        <button class="acc-btn" aria-expanded="false"><span class="acc-slot">01</span><span class="acc-title">Opening: the self-improving enterprise</span><span class="acc-ico" aria-hidden="true">+</span></button>
+        <div class="acc-body"><div class="acc-body-in">Anchored to the announced theme. Built as a single-speaker keynote block with a full-width quote pull and a timed progress rail.<br><span class="slot-note">Speaker and time pending confirmation</span></div></div>
+      </div>
+      <div class="acc rv">
+        <button class="acc-btn" aria-expanded="false"><span class="acc-slot">02</span><span class="acc-title">Agentic human engineers at scale</span><span class="acc-ico" aria-hidden="true">+</span></button>
+        <div class="acc-body"><div class="acc-body-in">Built for the announced idea of humans monitoring thousands of long running agents. Panel layout, two to four seats, with a live transcript slot.<br><span class="slot-note">Panellists pending confirmation</span></div></div>
+      </div>
+      <div class="acc rv">
+        <button class="acc-btn" aria-expanded="false"><span class="acc-slot">03</span><span class="acc-title">Live demonstration block</span><span class="acc-ico" aria-hidden="true">+</span></button>
+        <div class="acc-body"><div class="acc-body-in">Reserved for the experience promised in the announcement. Designed as a dark stage block so a projected product screen stays the brightest thing in the room.<br><span class="slot-note">Demo scope pending confirmation</span></div></div>
+      </div>
+      <div class="acc rv">
+        <button class="acc-btn" aria-expanded="false"><span class="acc-slot">04</span><span class="acc-title">Closed-door leadership roundtable</span><span class="acc-ico" aria-hidden="true">+</span></button>
+        <div class="acc-body"><div class="acc-body-in">Matches the invite-only, CIO and CEO audience. Built with a private toggle so this block can be hidden from the public page and shown only to confirmed invitees.<br><span class="slot-note">Format pending confirmation</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INVITE -->
+<section id="invite">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-tag">Registration</div>
+      <h2>The path that does not exist yet</h2>
+      <p>Right now the only route in is a line asking customers to contact their account manager. A qualified request flow costs nothing and captures the leaders who are not customers yet.</p>
+    </div>
+    <div class="form-shell rv">
+      <form id="inviteForm" novalidate>
+        <div class="fgrid">
+          <div class="field"><label for="fname">Full name</label><input id="fname" type="text" autocomplete="name" placeholder="Your name"><span class="err" id="e-fname"></span></div>
+          <div class="field"><label for="femail">Work email</label><input id="femail" type="email" autocomplete="email" placeholder="name@company.com"><span class="err" id="e-femail"></span></div>
+          <div class="field"><label for="fcompany">Organization</label><input id="fcompany" type="text" autocomplete="organization" placeholder="Company name"><span class="err" id="e-fcompany"></span></div>
+          <div class="field"><label for="frole">Role</label>
+            <select id="frole"><option value="">Select a role</option><option>CIO or CTO</option><option>CEO or Founder</option><option>VP or Head of Engineering</option><option>Head of Data or AI</option><option>Other enterprise leader</option></select>
+            <span class="err" id="e-frole"></span></div>
+          <div class="field"><label for="fcustomer">Existing Abacus.AI customer</label>
+            <select id="fcustomer"><option value="">Select one</option><option>Yes, we are a customer</option><option>No, not yet</option></select>
+            <span class="err" id="e-fcustomer"></span></div>
+          <div class="field"><label for="fsize">Organization size</label>
+            <select id="fsize"><option value="">Select one</option><option>Under 500</option><option>500 to 5,000</option><option>Over 5,000</option></select>
+            <span class="err" id="e-fsize"></span></div>
+        </div>
+        <div class="form-foot">
+          <button type="submit" class="btn btn-primary">Submit request</button>
+          <span class="form-note">Demo only. Nothing is sent, stored or transmitted. Validation runs entirely in your browser.</span>
+        </div>
+      </form>
+      <div class="ok-state" id="okState">
+        <div class="ok-badge" aria-hidden="true">&#10003;</div>
+        <h3 style="font-size:22px">Request captured</h3>
+        <p style="color:var(--muted);margin-top:8px;max-width:52ch;margin-left:auto;margin-right:auto;font-size:14px">In a live build this is where routing happens: existing customers to their account manager, everyone else into the qualification queue. Nothing was sent from this demo.</p>
+        <button class="btn btn-ghost btn-sm" id="resetForm" style="margin-top:16px">Reset the form</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVIDENCE -->
+<section id="evidence">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-tag">Verified findings</div>
+      <h2>Nothing here is our opinion</h2>
+      <p>Each item was checked directly against a live public page on 28 August 2026. Press Verify on any card and the source opens in a new tab so you can confirm it yourself.</p>
+    </div>
+    <div class="tabs rv" role="tablist">
+      <button class="tab t-flag" role="tab" aria-selected="true" data-tab="flag">Needs attention <span class="cnt" id="cntFlag">0</span></button>
+      <button class="tab t-ok" role="tab" aria-selected="false" data-tab="ok">Already working well <span class="cnt" id="cntOk">0</span></button>
+    </div>
+    <div class="two" id="evGrid"></div>
+    <div class="more-wrap"><button class="btn btn-ghost" id="moreBtn">Show all findings</button></div>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section id="compare">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-tag">Before and after</div>
+      <h2>The pricing page, as the internet currently sees it</h2>
+      <p>A page's title and description are the first design anyone experiences, before a single pixel loads. On the left is what abacus.ai/pricing publishes today, quoted exactly. On the right is the same page in the same voice, rewritten.</p>
+    </div>
+    <div class="two">
+      <div class="cmp bad rv">
+        <div class="cmp-h"><span>&#9679;</span> Today, live right now</div>
+        <div class="cmp-b">
+          <div class="serp">
+            <div class="url"><span class="fav"></span>abacus.ai &rsaquo; pricing</div>
+            <div class="t">Abacus.AI - The World's First Super Assistant For Professionals And Enterprises.</div>
+            <div class="d">Abacus.AI is the AI Brain for your organization. Your very own AI Engineer will build applied AI systems across a wide variety of use cases including custom chatbots, ai workflows, forecasting, personalization and predictive modeling.</div>
+          </div>
+          <div class="social bad">
+            <div class="img">Same card as the homepage</div>
+            <div class="meta"><div class="st">Abacus.AI - The World's First Super Assistant For Professionals And Enterprises.</div><div class="sd">abacus.ai</div></div>
+          </div>
+          <p class="cmp-note">The word pricing appears in neither the title nor the description. Both strings are byte for byte identical to the homepage, and the page is absent from the published sitemap.</p>
+        </div>
+      </div>
+      <div class="cmp good rv">
+        <div class="cmp-h"><span>&#9679;</span> Proposed, same brand</div>
+        <div class="cmp-b">
+          <div class="serp">
+            <div class="url"><span class="fav"></span>abacus.ai &rsaquo; pricing</div>
+            <div class="t">Abacus.AI Pricing — Plans, Credits and What Each One Buys</div>
+            <div class="d">Compare Basic and Pro side by side, see exactly what a credit is and what it is spent on, and find the right plan for a team or an enterprise rollout.</div>
+          </div>
+          <div class="social good">
+            <div class="img">Purpose-built pricing card</div>
+            <div class="meta"><div class="st">Abacus.AI Pricing — Plans, Credits and What Each One Buys</div><div class="sd">abacus.ai</div></div>
+          </div>
+          <p class="cmp-note">Same product, same voice, same brand. It names the page, answers the one question every visitor arrives with, and carries its own social card instead of borrowing the homepage's.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEVICES -->
+<section id="devices">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-tag">Web and mobile</div>
+      <h2>One system, both screens, no second design pass</h2>
+      <p>The role covers web and mobile. Both frames below are the live page you are reading, at two widths, driven by the same tokens. Switch theme and both repaint together.</p>
+    </div>
+    <div class="two">
+      <div class="rv">
+        <div class="dev-desktop">
+          <div class="dev-bar"><i></i><i></i><i></i><span class="dev-url">automate concept · 1440px</span></div>
+          <div class="mini lg">
+            <span class="mini-eyebrow">Invite only · Enterprise</span>
+            <div class="mini-h" style="font-size:34px">Abacus AI <span class="grad">Automate</span></div>
+            <p class="mini-p">The first exclusive enterprise AI conference, bringing together 100+ CIOs, CEOs and enterprise leaders of AI native companies.</p>
+            <div class="mini-btns"><span class="mini-btn">Request an invitation</span><span class="mini-btn g">Agenda</span></div>
+            <div class="mini-tiles">
+              <div class="mini-tile"><div class="mk">Audience</div><div class="mv">100+ leaders</div></div>
+              <div class="mini-tile"><div class="mk">Access</div><div class="mv">Invite only</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="dev-cap">Desktop</div>
+      </div>
+      <div class="rv">
+        <div class="dev-phone">
+          <div class="dev-notch"></div>
+          <div class="mini" style="border-radius:20px;background:var(--bg);overflow:hidden">
+            <span class="mini-eyebrow">Invite only</span>
+            <div class="mini-h" style="font-size:20px">Abacus AI<br><span class="grad">Automate</span></div>
+            <p class="mini-p">The first exclusive enterprise AI conference for 100+ CIOs, CEOs and enterprise leaders.</p>
+            <div class="mini-btns"><span class="mini-btn">Request an invitation</span></div>
+            <div class="mini-tiles" style="grid-template-columns:1fr">
+              <div class="mini-tile"><div class="mk">Access</div><div class="mv">Invite only</div></div>
+              <div class="mini-tile"><div class="mk">Date</div><div class="mv" style="color:var(--warn)">Not announced</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="dev-cap">Mobile</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESIGN SYSTEM -->
+<section id="system">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-tag">Design system</div>
+      <h2>Not one page. A kit the next twenty pages come out of</h2>
+      <p>The brief says projects will vary, and that is the real problem to solve. These tokens ship as a Figma library with matching variables, so a page starts from components rather than from a blank frame. Every contrast figure below is computed live with the WCAG 2.1 formula against the current background, and recalculated the moment you switch theme.</p>
+    </div>
+    <div class="two">
+      <div>
+        <div class="sub-h">Colour tokens and measured contrast</div>
+        <div id="tokens"></div>
+      </div>
+      <div>
+        <div class="sub-h">Type scale</div>
+        <div class="type-row"><span class="lbl">Display</span><span class="demo" style="font-size:30px">Automate</span></div>
+        <div class="type-row"><span class="lbl">Heading</span><span class="demo" style="font-size:24px">Section heading</span></div>
+        <div class="type-row"><span class="lbl">Card</span><span class="demo" style="font-size:18px">Card heading</span></div>
+        <div class="type-row"><span class="lbl">Body</span><span class="demo" style="font-size:15px;font-family:var(--f-body);font-weight:400">Body copy at fifteen and a half pixels</span></div>
+        <div class="type-row"><span class="lbl">Caption</span><span class="demo" style="font-size:11.5px;font-family:var(--f-body);font-weight:600;letter-spacing:.1em;text-transform:uppercase">Caption and eyebrow</span></div>
+        <div class="sub-h" style="margin-top:20px">Components, live</div>
+        <div class="card" style="padding:18px">
+          <div class="comp-strip">
+            <button class="btn btn-primary btn-sm" data-demo-btn>Primary</button>
+            <button class="btn btn-ghost btn-sm" data-demo-btn>Secondary</button>
+            <span class="sev" style="--sev:var(--flag)">Red flag</span>
+            <span class="sev" style="--sev:var(--ok)">Cleared</span>
+            <span class="sev" style="--sev:var(--warn)">Pending</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="speed-strip rv">
+      <div>
+        <div class="lbl">Themes repainted in this session</div>
+        <div class="big" id="switchCount">0</div>
+      </div>
+      <p>Try the three circles at the top right. Every colour, badge, device frame and contrast reading recalculates at once. That is the difference between designing a page and designing a system, and it is what makes a varied roadmap survivable.</p>
+      <button class="btn btn-ghost" id="cycleTheme">Cycle the themes for me</button>
+    </div>
+  </div>
+</section>
+
+<!-- COVERAGE -->
+<section id="coverage">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-tag">Brief check</div>
+      <h2>Every line of the brief, answered here</h2>
+      <p>Read against the posting itself, so nothing is assumed and nothing is quietly skipped.</p>
+    </div>
+    <div class="two">
+      <div>
+        <div class="cov rv"><span class="tick">&#10003;</span><div><div class="req">Expert designers only</div><div class="ans">Judge the work, not a claim. Everything on this page is live and clickable.</div></div></div>
+        <div class="cov rv"><span class="tick">&#10003;</span><div><div class="req">Strong Figma skills</div><div class="ans">The tokens, type scale and components above ship as a Figma library with matching variables.</div></div></div>
+        <div class="cov rv"><span class="tick">&#10003;</span><div><div class="req">Create modern web pages</div><div class="ans">This is one, built and running, not a picture of one.</div></div></div>
+        <div class="cov rv"><span class="tick">&#10003;</span><div><div class="req">Web and mobile design</div><div class="ans">Both widths shown above, from the same system, with no second design pass.</div></div></div>
+      </div>
+      <div>
+        <div class="cov rv"><span class="tick">&#10003;</span><div><div class="req">Experience in UX and UI</div><div class="ans">A registration flow that does not exist yet, a findings model, and measured contrast on every colour.</div></div></div>
+        <div class="cov rv"><span class="tick">&#10003;</span><div><div class="req">Portfolio of similar work</div><div class="ans">Rather than a folder of other people's brands, this is your own missing page, built first.</div></div></div>
+        <div class="cov rv"><span class="tick">&#10003;</span><div><div class="req">Projects will vary</div><div class="ans">Three complete themes on one switch, and a component kit the next pages come out of.</div></div></div>
+        <div class="cov part rv"><span class="tick">!</span><div><div class="req">More details to follow</div><div class="ans">Deliberately left open. Dates, venue, speakers and session titles are blank because none have been announced, and no placeholder was invented.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="brand" style="margin-bottom:12px"><span class="mark"></span><span>Automate</span></div>
+        <p>An unofficial event page concept, built to show what a live, working, verified deliverable looks like before a single hour is billed.</p>
+      </div>
+      <div>
+        <p style="color:var(--text);font-weight:600;margin-bottom:9px;font-family:var(--f-display)">Sources used on this page</p>
+        <p>Public announcement post dated 26 August 2026 · abacus.ai homepage, pricing, enterprise, about, case studies, security, gen_ai, sitemap.xml and robots.txt · apps.abacus.ai · blog.abacus.ai · deepagent.abacus.ai · desktop.abacus.ai · Trustpilot and G2 public review pages. All checked 28 August 2026.</p>
+      </div>
+    </div>
+    <p class="legal">This page is an independent design concept produced for evaluation purposes. It is not affiliated with, endorsed by, sponsored by, or produced by Abacus.AI, and it is not an official Abacus.AI communication. Product names and quoted statements remain the property of their respective owners and are reproduced here only as short attributed quotations from public sources for the purpose of commentary and review. No personal data is collected, transmitted or stored by this page, and no cookies or analytics are used. Any factual claim on this page can be checked against the linked public source, and will be corrected or removed on request.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  var FINDINGS=[
+    {g:"flag",sev:"critical",sv:"var(--flag)",
+     t:"The announced conference has no page",
+     f:"Announced publicly on 26 August 2026 and drew 417 reactions, 46 comments and 45 reposts. No event page exists on the website and no event URL appears in the published sitemap.",
+     lbl:"Checked in sitemap.xml",p:"21 URLs listed. None reference an event, conference, automate or summit.",
+     url:"https://abacus.ai/sitemap.xml"},
+
+    {g:"flag",sev:"critical",sv:"var(--flag)",
+     t:"There is no contact page",
+     f:"Opening the contact URL returns the homepage. There is no Contact link in the header navigation or in the footer. A public reviewer raised the same point independently.",
+     lbl:"abacus.ai/contact resolves to",p:"The homepage. Title: Abacus.AI - The World's First Super Assistant For Professionals And Enterprises.",
+     url:"https://abacus.ai/contact"},
+
+    {g:"flag",sev:"critical",sv:"var(--flag)",
+     t:"The enterprise page wears the homepage's title",
+     f:"The commercial page aimed at the largest buyers carries the homepage title and description. A second, better written enterprise page exists on a different URL, so the two split their own authority.",
+     lbl:"/enterprise vs /gen_ai",p:"/enterprise → homepage title, absent from sitemap.   /gen_ai → Enterprise AI Platform for Agents & ML | Abacus.AI",
+     url:"https://abacus.ai/gen_ai"},
+
+    {g:"flag",sev:"high",sv:"var(--flag)",
+     t:"The blog footer still reads 2022",
+     f:"Every other property on the domain shows the current year. The blog sits on a separate subdomain with its own theme, its own navigation and a copyright line four years out of date.",
+     lbl:"Footer, quoted exactly",p:"Copyright © 2022 Abacus.AI. All Rights Reserved",
+     url:"https://blog.abacus.ai/"},
+
+    {g:"flag",sev:"high",sv:"var(--flag)",
+     t:"The pricing page wears the homepage's title too",
+     f:"The title and description on the pricing page are byte for byte identical to the homepage. The word pricing appears in neither, and the page is missing from the sitemap.",
+     lbl:"Title tag on /pricing",p:"Abacus.AI - The World's First Super Assistant For Professionals And Enterprises.",
+     url:"https://abacus.ai/pricing"},
+
+    {g:"flag",sev:"high",sv:"var(--flag)",
+     t:"Nowhere does the pricing page say what a credit is",
+     f:"Basic is ten dollars a month with twenty thousand credits. Pro is twenty dollars with thirty thousand. Double the price for one and a half times the credits, and no definition of the unit being sold.",
+     lbl:"Plans as published",p:"Basic — $10/month — 20,000 credits/month   ·   Pro — $20 per month — 30,000 credits / month",
+     url:"https://abacus.ai/pricing"},
+
+    {g:"flag",sev:"high",sv:"var(--flag)",
+     t:"No team or enterprise tier on the pricing page",
+     f:"Only two consumer plans are listed, with no contact sales row, while the company sells an enterprise platform and brands the flagship as a Teams product. The enterprise buyer reaches pricing and finds no next step.",
+     lbl:"Tiers listed on /pricing",p:"Basic, Pro. No team tier, no enterprise tier, no contact sales option.",
+     url:"https://abacus.ai/pricing"},
+
+    {g:"flag",sev:"high",sv:"var(--flag)",
+     t:"Two pages disagree about the customer count",
+     f:"The case studies page and the about page are one click apart in the same navigation and state customer numbers that differ by three orders of magnitude, in opposite directions on the Fortune 500 claim as well.",
+     lbl:"Case studies vs About",p:"1M+ Customers including several Fortune 500s   — vs —   used by thousands of companies, including dozens of Fortune 500.",
+     url:"https://abacus.ai/casestudies"},
+
+    {g:"flag",sev:"medium",sv:"var(--warn)",
+     t:"The product itself ships with no page identity",
+     f:"The signed-in application returns no title, no description and no social card, and exposes its build commit in the markup. Every link anyone shares to it arrives blank.",
+     lbl:"apps.abacus.ai markup",p:"No title, no meta description, no OG tags. meta-build-commit: 15bde21",
+     url:"https://apps.abacus.ai/"},
+
+    {g:"flag",sev:"medium",sv:"var(--warn)",
+     t:"Twenty named logos, twenty-two anonymous stories",
+     f:"The case studies page carries twenty recognisable enterprise logos. Not one of the case studies names a customer, carries a date, names an author or quotes a person.",
+     lbl:"Opening words of a case study",p:"The company's legal team spent significant time manually drafting repetitive legal documents…",
+     url:"https://abacus.ai/casestudies"},
+
+    {g:"flag",sev:"medium",sv:"var(--warn)",
+     t:"A product rename is still half finished in public",
+     f:"The product now calls itself Abacus AI Agent, but the old name is still live across the URL, the social image filename, the signup link and a banner on the help centre.",
+     lbl:"abacus.ai/deepagent returns",p:"HTTP 404. The product lives at deepagent.abacus.ai and the signup link still carries DeepAgent=1.",
+     url:"https://deepagent.abacus.ai/"},
+
+    {g:"flag",sev:"medium",sv:"var(--warn)",
+     t:"The homepage says First, the heading says Best",
+     f:"The title tag and the on-page heading make two different superlative claims, and a third variation appears further down the same page.",
+     lbl:"Title vs H1",p:"The World's First Super Assistant…   — vs —   The World's Best AI Super Assistant…",
+     url:"https://abacus.ai/"},
+
+    {g:"flag",sev:"medium",sv:"var(--warn)",
+     t:"Public review scores tell two different stories",
+     f:"The score on the review site the company can shape sits far above the score buyers meet when they arrive from search. Both are public and both are current.",
+     lbl:"Public review pages",p:"Trustpilot 2.0 out of 5 from 71 reviews   ·   G2 4.3 out of 5 from 14 reviews",
+     url:"https://au.trustpilot.com/review/abacus.ai"},
+
+    {g:"ok",sev:"strong",sv:"var(--ok)",
+     t:"The about page is done properly",
+     f:"Unique title, unique description, correct social image and a clean heading. This is the standard already set inside the company, and the standard the commercial pages should be brought up to.",
+     lbl:"Title tag on /about",p:"About Abacus.AI Company | Enterprise Generative AI Platform",
+     url:"https://abacus.ai/about"},
+
+    {g:"ok",sev:"strong",sv:"var(--ok)",
+     t:"The security page is thorough and specific",
+     f:"Named certifications, a plain statement on customer data and a compliance request route. For an enterprise audience this page is already doing its job well.",
+     lbl:"Stated on the page",p:"SOC 2 Type II · ISO/IEC 27001 · HIPAA · GDPR · CCPA",
+     url:"https://abacus.ai/security"},
+
+    {g:"ok",sev:"strong",sv:"var(--ok)",
+     t:"The enterprise copy already exists and it is good",
+     f:"A well written enterprise page is live with a proper title and description. It simply sits on a URL nobody would type, while the clean enterprise URL carries the homepage fallback.",
+     lbl:"Title tag on /gen_ai",p:"Enterprise AI Platform for Agents & ML | Abacus.AI",
+     url:"https://abacus.ai/gen_ai"},
+
+    {g:"ok",sev:"strong",sv:"var(--ok)",
+     t:"The desktop product page is clean",
+     f:"Unique title, unique description, correct social card and a current footer year. Another internal example of the bar being met.",
+     lbl:"Meta description",p:"State of the art coding CLI and desktop assistant",
+     url:"https://desktop.abacus.ai/"}
+  ];
+
+  function $(s,c){return (c||document).querySelector(s);}
+  function $$(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s));}
+
+  var toastEl=$("#toast"),tt=null;
+  function toast(m){toastEl.textContent=m;toastEl.classList.add("show");clearTimeout(tt);tt=setTimeout(function(){toastEl.classList.remove("show");},2400);}
+
+  /* findings */
+  var grid=$("#evGrid"),moreBtn=$("#moreBtn"),STEP=6,curGroup="flag",shown=STEP;
+  function render(g,limit){
+    grid.innerHTML="";
+    var set=FINDINGS.filter(function(f){return f.g===g;});
+    var vis=set.slice(0,limit);
+    if(set.length>limit){ moreBtn.classList.remove("hidden"); moreBtn.textContent="Show the remaining "+(set.length-limit)+" findings"; }
+    else if(set.length>STEP){ moreBtn.classList.remove("hidden"); moreBtn.textContent="Show fewer"; }
+    else { moreBtn.classList.add("hidden"); }
+    vis.forEach(function(f){
+      var el=document.createElement("article");
+      el.className="ev rv";el.style.setProperty("--sev",f.sv);
+      el.innerHTML='<div class="ev-top"><span class="sev">'+f.sev+'</span></div>'+
+        '<h4>'+f.t+'</h4><p class="found">'+f.f+'</p>'+
+        '<div class="proof"><span class="lbl">'+f.lbl+'</span>'+f.p+'</div>'+
+        '<div class="ev-acts">'+
+        '<a class="btn btn-ghost btn-sm" href="'+f.url+'" target="_blank" rel="noopener noreferrer">Verify at source &#8599;</a>'+
+        '<button class="btn btn-ghost btn-sm" data-copy="'+f.url+'">Copy the link</button></div>';
+      grid.appendChild(el);
+    });
+    requestAnimationFrame(function(){$$(".ev.rv",grid).forEach(function(n,i){setTimeout(function(){n.classList.add("in");},35*i);});});
+  }
+  moreBtn=$("#moreBtn");
+  moreBtn.addEventListener("click",function(){
+    var total=FINDINGS.filter(function(f){return f.g===curGroup;}).length;
+    if(shown>=total){ shown=STEP; render(curGroup,shown); scrollToId("evidence"); }
+    else { shown=total; render(curGroup,shown); }
+  });
+  $("#cntFlag").textContent=FINDINGS.filter(function(f){return f.g==="flag";}).length;
+  $("#cntOk").textContent=FINDINGS.filter(function(f){return f.g==="ok";}).length;
+  render("flag",STEP);
+
+  $$(".tab").forEach(function(t){
+    t.addEventListener("click",function(){
+      $$(".tab").forEach(function(x){x.setAttribute("aria-selected","false");});
+      t.setAttribute("aria-selected","true");
+      curGroup=t.getAttribute("data-tab"); shown=STEP;
+      render(curGroup,shown);
+    });
+  });
+
+  document.addEventListener("click",function(e){
+    var b=e.target.closest("[data-copy]");if(!b)return;
+    var txt=b.getAttribute("data-copy");
+    function fb(){var ta=document.createElement("textarea");ta.value=txt;ta.style.position="fixed";ta.style.opacity="0";
+      document.body.appendChild(ta);ta.select();try{document.execCommand("copy");}catch(x){}document.body.removeChild(ta);toast("Link copied");}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){toast("Link copied");},fb);}else{fb();}
+  });
+
+  /* contrast */
+  var PAL={
+    midnight:{bg:"#07080C",items:[["Text","#E9ECF5"],["Muted text","#8B94A9"],["Accent","#6D5EF8"],["Accent two","#22D3EE"],["Red flag","#FF4D5E"],["Cleared","#2FD98F"],["Pending","#FFB020"]]},
+    aurora:{bg:"#04100F",items:[["Text","#E7F6F2"],["Muted text","#84A8A0"],["Accent","#14E0A8"],["Accent two","#7C6BFF"],["Red flag","#FF5C6B"],["Cleared","#4AE3A0"],["Pending","#FFC24D"]]},
+    daylight:{bg:"#F6F7FB",items:[["Text","#0E1220"],["Muted text","#535C71"],["Accent","#4B3BE8"],["Accent two","#0E7C93"],["Red flag","#C8202F"],["Cleared","#0B7C4F"],["Pending","#8A5A05"]]}
+  };
+  function lum(hex){var h=hex.replace("#","");
+    var r=parseInt(h.substr(0,2),16)/255,g=parseInt(h.substr(2,2),16)/255,b=parseInt(h.substr(4,2),16)/255;
+    function c(v){return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4);}
+    return 0.2126*c(r)+0.7152*c(g)+0.0722*c(b);}
+  function ratio(a,b){var l1=lum(a),l2=lum(b),hi=Math.max(l1,l2),lo=Math.min(l1,l2);return (hi+0.05)/(lo+0.05);}
+  function paint(theme){
+    var p=PAL[theme],box=$("#tokens");box.innerHTML="";
+    p.items.forEach(function(it){
+      var r=ratio(it[1],p.bg);
+      var pill=r>=4.5?'<span class="pill pass">AA text</span>':(r>=3?'<span class="pill pass">AA large</span>':'<span class="pill fail">Below AA</span>');
+      var row=document.createElement("div");row.className="tok-row";
+      row.innerHTML='<span class="sw" style="background:'+it[1]+'"></span>'+
+        '<span class="tok-meta"><span class="n">'+it[0]+'</span><br><span class="h">'+it[1].toUpperCase()+' on '+p.bg.toUpperCase()+'</span></span>'+
+        '<span class="ratio"><span class="num">'+r.toFixed(2)+'</span><br>'+pill+'</span>';
+      box.appendChild(row);
+    });
+  }
+
+  /* theme */
+  var switches=0,countEl=$("#switchCount");
+  function setTheme(n,count){
+    document.documentElement.setAttribute("data-theme",n);
+    $$("[data-theme-set]").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-theme-set")===n));});
+    paint(n);
+    if(count!==false){switches++;countEl.textContent=switches;}
+  }
+  $$("[data-theme-set]").forEach(function(b){
+    b.addEventListener("click",function(){setTheme(b.getAttribute("data-theme-set"));toast(b.getAttribute("title")+" applied. Contrast recalculated.");});
+  });
+  setTheme("midnight",false);
+
+  var order=["midnight","aurora","daylight"],idx=0,cyc=null;
+  $("#cycleTheme").addEventListener("click",function(){
+    var self=this;
+    if(cyc){clearInterval(cyc);cyc=null;self.textContent="Cycle the themes for me";return;}
+    self.textContent="Stop cycling";var steps=0;
+    cyc=setInterval(function(){idx=(idx+1)%order.length;setTheme(order[idx]);steps++;
+      if(steps>=6){clearInterval(cyc);cyc=null;self.textContent="Cycle the themes for me";}},1100);
+  });
+
+  /* accordion */
+  $$(".acc-btn").forEach(function(btn){
+    btn.addEventListener("click",function(){
+      var acc=btn.parentElement,body=$(".acc-body",acc),open=acc.classList.contains("open");
+      $$(".acc").forEach(function(a){a.classList.remove("open");$(".acc-body",a).style.maxHeight=null;$(".acc-btn",a).setAttribute("aria-expanded","false");});
+      if(!open){acc.classList.add("open");body.style.maxHeight=body.scrollHeight+"px";btn.setAttribute("aria-expanded","true");}
+    });
+  });
+
+  /* smooth scroll, no hash in the address bar */
+  function scrollToId(id){
+    var el=document.getElementById(id);if(!el)return;
+    var top=el.getBoundingClientRect().top+window.pageYOffset-88;
+    var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({top:top,behavior:reduce?"auto":"smooth"});
+  }
+  $$('a[href^="#"]').forEach(function(a){
+    a.addEventListener("click",function(e){
+      var id=a.getAttribute("href").slice(1);
+      if(!document.getElementById(id))return;
+      e.preventDefault();
+      scrollToId(id);
+      var link=$('#navlinks a[href="#'+id+'"]');
+      if(link){$$("#navlinks a").forEach(function(x){x.classList.remove("on");});link.classList.add("on");
+        try{link.scrollIntoView({block:"nearest",inline:"nearest"});}catch(err){}}
+    });
+  });
+
+  /* form */
+  var form=$("#inviteForm"),okState=$("#okState");
+  var FIELDS=["fname","femail","fcompany","frole","fcustomer","fsize"];
+  function bad(id,m){$("#"+id).classList.add("bad");$("#e-"+id).textContent=m;}
+  function clear(id){$("#"+id).classList.remove("bad");$("#e-"+id).textContent="";}
+  FIELDS.forEach(function(id){var el=$("#"+id);
+    el.addEventListener("input",function(){clear(id);});el.addEventListener("change",function(){clear(id);});});
+  form.addEventListener("submit",function(e){
+    e.preventDefault();var ok=true;
+    var name=$("#fname").value.trim(),email=$("#femail").value.trim(),comp=$("#fcompany").value.trim();
+    if(name.length<2){bad("fname","Please enter your full name.");ok=false;}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){bad("femail","Please enter a valid work email address.");ok=false;}
+    else if(/@(gmail|yahoo|hotmail|outlook|icloud|proton)\./i.test(email)){bad("femail","Please use your work email address.");ok=false;}
+    if(comp.length<2){bad("fcompany","Please enter your organization.");ok=false;}
+    if(!$("#frole").value){bad("frole","Please select a role.");ok=false;}
+    if(!$("#fcustomer").value){bad("fcustomer","Please select one.");ok=false;}
+    if(!$("#fsize").value){bad("fsize","Please select one.");ok=false;}
+    if(!ok){toast("Please check the highlighted fields");return;}
+    form.classList.add("hidden");okState.classList.add("show");toast("Demo only. Nothing was sent.");
+  });
+  $("#resetForm").addEventListener("click",function(){
+    form.reset();form.classList.remove("hidden");okState.classList.remove("show");
+    FIELDS.forEach(clear);scrollToId("invite");
+  });
+
+  $$("[data-demo-btn]").forEach(function(b){
+    b.addEventListener("click",function(){toast(b.textContent.trim()+" button — token driven, repaints with the theme");});
+  });
+
+  /* reveal + spy */
+  if("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:.1});
+    $$(".rv").forEach(function(n){io.observe(n);});
+    var ids=["event","agenda","invite","evidence","compare","devices","system","coverage"];
+    var spy=new IntersectionObserver(function(en){en.forEach(function(e){
+      if(e.isIntersecting){$$("#navlinks a").forEach(function(a){a.classList.toggle("on",a.getAttribute("href")==="#"+e.target.id);});}
+    });},{rootMargin:"-45% 0px -50% 0px"});
+    ids.forEach(function(id){var el=document.getElementById(id);if(el)spy.observe(el);});
+  } else { $$(".rv").forEach(function(n){n.classList.add("in");}); }
+
+})();
+</script>
+</body>
+</html>
